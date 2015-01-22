@@ -1,0 +1,33 @@
+{
+  "name": "exif-image-sorter",
+  "version": "0.0.1",
+  "description": "Sort a folder of images into subfolders dated by the assets exif data",
+  "main": "app.js",
+  "debug": {
+    "webport": 8080,
+    "webhost": "localhost",
+    "debugport": 5858
+  },
+  "scripts": {
+    "start": "node node_modules/grunt-cli/bin/grunt"
+  },
+  "engines": {
+    "node": "0.10.26",
+    "npm": "1.4.3"
+  },
+  "dependencies": {
+    "exif": "0.4.0",
+    "lodash": "2.4.1",
+    "winston": "^0.8.0",
+    "geolib": "2.0.14",
+    "cities": "1.0.6"
+  },
+  "devDependencies": {
+    "grunt": "0.4.4",
+    "grunt-cli": "0.1.13",
+    "grunt-env": "~0.4.1",
+    "grunt-nodemon": "0.2.1",
+    "grunt-concurrent": "1.0.0",
+    "load-grunt-tasks": "~0.4.0"
+  }
+}
