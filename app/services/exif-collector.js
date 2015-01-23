@@ -11,11 +11,14 @@ var exifCollector = {
             if (error)
                 console.log('Error: '+error.message);
             else
-                var sexagesimalLatitude = generateSexagesimal(exifData.gps);
+                console.log(exifData)
+                var sexagesimalLatitude = generateSexagesimal(exifData.gps.GPSLatitude,exifData.gps.GPSLatitudeRef);
+                var sexagesimalGPSLongitude = generateSexagesimal(exifData.gps.GPSLongitude,exifData.gps.GPSLongitudeRef);
                 var decimalLatitude = geolib.sexagesimal2decimal(sexagesimalLatitude);
-                console.log(decimalLatitude)
-                //var city = cities.gps_lookup(exifData.gps.GPSLatitude, exifData.image.gps.GPSLongitude)
-                //console.log(exifData.gps.GPSLatitude[0]); 
+                var decimalLongitude = geolib.sexagesimal2decimal(sexagesimalGPSLongitude);
+                
+                var city = cities.gps_lookup(decimalLatitude,decimalLongitude)
+                console.log(decimalLatitude,decimalLongitude); 
 
         });
     } catch (error) {
@@ -25,8 +28,8 @@ var exifCollector = {
 
 } 
 
-function generateSexagesimal(gps) {
-  return gps.GPSLatitude[0] + '° ' + gps.GPSLatitude[1] + '\' ' + gps.GPSLatitude[2] + '" ' + gps.GPSLatitudeRef;
+function generateSexagesimal(gps, ref) {
+  return gps[0] + '° ' + gps[1] + '\' ' + gps[2] + '" ' + ref;
 }
 
 module.exports = {
