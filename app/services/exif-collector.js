@@ -1,6 +1,5 @@
 var config = require('../../config/config'),
     ExifImage = require('exif').ExifImage,
-    cities = require('cities'),
     geolib = require('geolib');
 
 
@@ -17,7 +16,7 @@ var exifCollector = {
                 var decimalLatitude = geolib.sexagesimal2decimal(sexagesimalLatitude);
                 var decimalLongitude = geolib.sexagesimal2decimal(sexagesimalGPSLongitude);
                 
-                var city = cities.gps_lookup(decimalLatitude,decimalLongitude)
+                // cities will need google mapds
                 console.log(decimalLatitude,decimalLongitude); 
 
         });
