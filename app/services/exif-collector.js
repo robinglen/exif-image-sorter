@@ -19,7 +19,13 @@ var exifCollector = {
                 
                 //cities will need google mapds
                 googleMapsApi.requestMapData(function(error,res){
-                   console.log(res.body);
+                   var newImageObj = {
+                        file: image,
+                        image: exifData.image,
+                        exif: exifData.exif,
+                        gps: exifData.gps,
+                        locale: JSON.parse(res.body.results)
+                   }
                 },
                 {
                     latlng: decimalLatitude +','+decimalLongitude

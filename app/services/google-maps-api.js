@@ -8,7 +8,6 @@ function requestMapData (callback,opts) {
     pathname: '//maps.googleapis.com/maps/api/geocode/json',
     query: opts
   });
-  console.log(path)
   request(path, function (error, res, body) {
       if (!error && res.statusCode == 200) {
         callback(null,{res:res,body:body}) ;
