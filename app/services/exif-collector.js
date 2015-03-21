@@ -25,7 +25,8 @@ var exifCollector = {
                         exif: exifData.exif,
                         gps: exifData.gps,
                         locale: JSON.parse(res.body.results)
-                   }
+                   };
+                   
                 },
                 {
                     latlng: decimalLatitude +','+decimalLongitude
