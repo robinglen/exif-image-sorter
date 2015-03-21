@@ -1,10 +1,21 @@
 var config = require('../../config/config'),
-    fs = require('fs');
+    fs = require('fs'),
+    mime = require('mime');
 
 var imagePathBuilder = {
     init: function (imageFolder) {
-        var images = fs.readdirSync(config.ROOT + '/images');
-        return images;
+    	var imageDirectory = config.ROOT + '/images';
+        var images = fs.readdirSync(imageDirectory);
+        var imageArr = [];
+
+        images.forEach(function(image){
+        	var imagePath = imageDirectory + '/' + image;
+        	var mimeType = mime.lookup(imagePath);
+        	if(mimeType.indexOf("image") > -1) {
+				imageArr.push(imagePath)
+        	};
+        })
+        return imageArr;
   }
 
 } 
