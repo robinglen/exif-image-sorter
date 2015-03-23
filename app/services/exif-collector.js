@@ -5,7 +5,20 @@ var config = require('../../config/config'),
 
 
 var exifCollector = {
-    init: function (image) {
+    init: function (imageArr) {
+        imageArr.forEach(function(image){
+            generateImageMetadata(image, function(imageMeta) {
+                console.log(imageMeta);
+            }); 
+        })
+    /*
+    
+    */
+  }
+
+} 
+
+function generateImageMetadata(image, callback) {
     try {
         new ExifImage({ image : image }, function (error, exifData) {
             if (error) {
@@ -19,14 +32,13 @@ var exifCollector = {
                 
                 //cities will need google mapds
                 googleMapsApi.requestMapData(function(error,res){
-                   var newImageObj = {
+                   callback({
                         file: image,
                         image: exifData.image,
                         exif: exifData.exif,
                         gps: exifData.gps,
                         locale: JSON.parse(res.body.results)
-                   };
-                   
+                   });
                 },
                 {
                     latlng: decimalLatitude +','+decimalLongitude
@@ -36,11 +48,10 @@ var exifCollector = {
             }
         });
     } catch (error) {
+        callback('error');
         console.log('Error: ' + error.message);
     }
-  }
-
-} 
+}
 
 function generateSexagesimal(gps, ref) {
   return gps[0] + '° ' + gps[1] + '\' ' + gps[2] + '" ' + ref;

@@ -4,7 +4,7 @@ var config = require('../../config/config'),
 
 var imagePathBuilder = {
     init: function (imageFolder) {
-    	var imageDirectory = config.ROOT + '/images';
+    	var imageDirectory = config.ROOT + 'images';
         var images = fs.readdirSync(imageDirectory);
         var imageArr = [];
 

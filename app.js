@@ -4,6 +4,5 @@ var config = require('./config/config'),
 	imageArr = require(config.ROOT + '/app/utilities/collect-image-paths').init();
 
 
-
-exifCollector.init(config.ROOT + '/images/IMG_0258.JPG');
+exifCollector.init(imageArr);
 
