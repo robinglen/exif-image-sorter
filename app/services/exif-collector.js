@@ -1,19 +1,19 @@
 var config = require('../../config/config'),
     ExifImage = require('exif').ExifImage,
     geolib = require('geolib'),
-    googleMapsApi = require(config.ROOT + '/app/services/google-maps-api');
+    googleMapsApi = require(config.ROOT + '/app/services/google-maps-api'),
+    storeImages = require(config.ROOT + '/app/services/store-image');
 
 
 var exifCollector = {
     init: function (imageArr) {
         imageArr.forEach(function(image){
             generateImageMetadata(image, function(imageMeta) {
-                console.log(imageMeta);
+                storeImages.init(imageMeta);
             }); 
         })
-    /*
-    
-    */
+
+
   }
 
 } 
@@ -33,12 +33,15 @@ function generateImageMetadata(image, callback) {
                 //cities will need google mapds
                 googleMapsApi.requestMapData(function(error,res){
                    callback({
-                        file: image,
+                        file: image.replace(/^.*[\\\/]/, ''),
+                        type: getFileExtension(image),
+                        path: image,
                         image: exifData.image,
                         exif: exifData.exif,
                         gps: exifData.gps,
-                        locale: JSON.parse(res.body.results)
+                        locale: JSON.parse(res.body)
                    });
+
                 },
                 {
                     latlng: decimalLatitude +','+decimalLongitude
@@ -51,6 +54,11 @@ function generateImageMetadata(image, callback) {
         callback('error');
         console.log('Error: ' + error.message);
     }
+}
+
+function getFileExtension(file) {
+    var re = /(?:\.([^.]+))?$/;
+    return '.' + re.exec(file)[1]
 }
 
 function generateSexagesimal(gps, ref) {
